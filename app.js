@@ -1,13 +1,12 @@
 "use strict";
 
-var express = require('express');
-var app = express();
-var middleware = require('./purse_middleware')
-var pi =  middleware.pi
-
-var request = require('request');
-var _ = require('underscore');
-var consolidate = require('consolidate');
+var express = require('express')
+  , app = express()
+  , middleware = require('./purse_middleware')
+  , pi =  middleware.pi
+  , request = require('request')
+  , _ = require('underscore')
+  , consolidate = require('consolidate')
 
 app.engine('html', consolidate.handlebars);
 app.set('view engine', 'html');

@@ -1,11 +1,10 @@
 "use strict";
 
-var request = require('request');
-var _ = require('underscore');
-var my_private = require('./credentials');
-
-var base = 'https://api.purse.io/api/v1/';
-var pi = {};
+var request = require('request')
+  , _ = require('underscore')
+  , my_private = require('./credentials')
+  , base = 'https://api.purse.io/api/v1/'
+  , pi = {};
 
 pi.partials  = function (req, res, next) {
   // somme paziali
