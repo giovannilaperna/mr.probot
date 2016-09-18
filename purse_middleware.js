@@ -5,12 +5,13 @@ var _ = require('underscore');
 var my_private = require('./credentials');
 
 var base = 'https://api.purse.io/api/v1/';
+var pi = {};
 
-var partials  = function (req, res, next) {
+pi.partials  = function (req, res, next) {
   // somme paziali
 }
 
-var html  = function (req, res, next) {
+pi.html  = function (req, res, next) {
   res.locals.countries = [
     {id: "US", name: "United States"},
     {id: "UK", name: "United Kingdom"},
@@ -28,11 +29,12 @@ var html  = function (req, res, next) {
   for (i = res.locals.results.length - 1; i >= 0; i -= 1) {
     res.locals.results[i].pricing.fee = res.locals.results[i].pricing.fee.toFixed(2) + " %";
     res.locals.results[i].pricing.current_exchange = res.locals.results[i].pricing.current_exchange.toFixed(2);
+    res.locals.results[i].pricing.buyer_pays_fiat = res.locals.results[i].pricing.buyer_pays_fiat.toFixed(2);
   }
   next();
 }
 
-var bycountry  = function (req, res, next) {
+pi.bycountry  = function (req, res, next) {
   res.locals = {
     total: res.locals.count_total,
     count: res.locals.results.length,
@@ -45,7 +47,7 @@ var bycountry  = function (req, res, next) {
   next();
 }
 
-var fast  = function (req, res, next) {
+pi.fast  = function (req, res, next) {
   var i;
   for (i = res.locals.results.length - 1; i >= 0; i -= 1) {
     for (let item of res.locals.results[i].items) {
@@ -59,7 +61,7 @@ var fast  = function (req, res, next) {
   next();
 }
 
-var all  = function (req, res, next) {
+pi.all  = function (req, res, next) {
 
   var i;
 
@@ -108,6 +110,7 @@ var all  = function (req, res, next) {
     json: true,
     method: 'POST',
     url: base + 'auth',
+    timeout: 3000,
     body: {
       "username": my_private.credentials.purse[0].email,
       "password": my_private.credentials.purse[0].psw,
@@ -116,8 +119,4 @@ var all  = function (req, res, next) {
   }, callbackResults );
 
 }
-module.exports.bycountry = bycountry;
-module.exports.fast = fast;
-module.exports.all = all;
-module.exports.html = html;
-module.exports.partials = partials;
+module.exports.pi = pi;
