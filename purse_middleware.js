@@ -5,8 +5,6 @@ var _ = require('underscore');
 var my_private = require('./credentials');
 
 var base = 'https://api.purse.io/api/v1/';
-var usr = 'altrochepallet@gmail.com';
-var psw = 'THAVlb*maXGLpRz64fdwsy*cH';
 
 var partials  = function (req, res, next) {
   // somme paziali
