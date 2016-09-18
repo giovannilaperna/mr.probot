@@ -12,24 +12,18 @@ var partials  = function (req, res, next) {
 
 var html  = function (req, res, next) {
   res.locals.countries = [
-    {id: "US", name: "United States", selected: ""},
-    {id: "UK", name: "United Kingdom", selected: ""},
-    {id: "CA", name: "Canada", selected: ""},
-    {id: "MX", name: "Mexico", selected: ""},
-    {id: "FR", name: "France", selected: ""},
-    {id: "IT", name: "Italy", selected: ""},
-    {id: "ES", name: "Spain", selected: ""},
-    {id: "JP", name: "Japan", selected: ""},
-    {id: "CN", name: "China", selected: ""},
-    {id: "BR", name: "Brazil", selected: ""},
-    {id: "IN", name: "India", selected: ""}
+    {id: "US", name: "United States"},
+    {id: "UK", name: "United Kingdom"},
+    {id: "CA", name: "Canada"},
+    {id: "MX", name: "Mexico"},
+    {id: "FR", name: "France"},
+    {id: "IT", name: "Italy"},
+    {id: "ES", name: "Spain"},
+    {id: "JP", name: "Japan"},
+    {id: "CN", name: "China"},
+    {id: "BR", name: "Brazil"},
+    {id: "IN", name: "India"}
   ]
-  var c;
-  for (c = res.locals.countries.length - 1; c >= 0; c -= 1) {
-    if (res.locals.countries[c].id === req.params.country) {
-
-    }
-  }
   var i;
   for (i = res.locals.results.length - 1; i >= 0; i -= 1) {
     res.locals.results[i].pricing.fee = res.locals.results[i].pricing.fee.toFixed(2) + " %";
