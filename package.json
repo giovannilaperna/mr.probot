@@ -1,12 +1,12 @@
 {
-  "name": "fast",
+  "name": "mr.probot",
   "version": "0.0.1",
-  "description": "purse.io api",
-  "main": "index.js",
+  "description": "Electron application for bitcoins pro traders",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node app.js"
   },
-  "author": "",
+  "author": "Consfuso",
   "license": "MIT",
   "dependencies": {
     "consolidate": "^0.14.1",
