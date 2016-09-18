@@ -2,6 +2,7 @@
 
 var request = require('request');
 var _ = require('underscore');
+var my_private = require('./credentials');
 
 var base = 'https://api.purse.io/api/v1/';
 var usr = 'altrochepallet@gmail.com';
@@ -116,8 +117,8 @@ var all  = function (req, res, next) {
     method: 'POST',
     url: base + 'auth',
     body: {
-      "username": usr,
-      "password": psw,
+      "username": my_private.credentials.purse[0].email,
+      "password": my_private.credentials.purse[0].psw,
       "noToken": true
     }
   }, callbackResults );
