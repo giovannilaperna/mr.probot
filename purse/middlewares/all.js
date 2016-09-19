@@ -55,8 +55,8 @@ var all  = function (req, res, next) {
     url: base + 'auth',
     timeout: 3000,
     body: {
-      "username": 'altrochepallet@gmail.com',
-      "password": 'THAVlb*maXGLpRz64fdwsy*cH',
+      "username": '__________________________',
+      "password": '__________________________',
       "noToken": true
     }
   }, callbackResults );
