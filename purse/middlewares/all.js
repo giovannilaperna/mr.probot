@@ -2,7 +2,6 @@
 
 var request = require('request')
   , _ = require('underscore')
-  , credentials = require('../private')
   , base = 'https://api.purse.io/api/v1/'
 
 var all  = function (req, res, next) {
@@ -56,8 +55,8 @@ var all  = function (req, res, next) {
     url: base + 'auth',
     timeout: 3000,
     body: {
-      "username": credentials.credentials.purse[0].email,
-      "password": credentials.credentials.purse[0].psw,
+      "username": 'altrochepallet@gmail.com',
+      "password": 'THAVlb*maXGLpRz64fdwsy*cH',
       "noToken": true
     }
   }, callbackResults );

@@ -4,6 +4,8 @@ var express = require('express')
   , app = express()
   , consolidate = require('consolidate')
   , path = require('path')
+  , port = process.env.PORT || 3000;
+
 
 app.engine('html', consolidate.handlebars);
 app.set('view engine', 'html');
@@ -11,8 +13,12 @@ app.set('views', __dirname + '/views');
 
 app.use('/purse', require('./purse/routers'))
 
-app.listen(3000, function () {
-  console.log('Listening on port 3000');
+app.get('/', function (req, res) {
+  res.status(200).send(app._router.stack)
+});
+
+app.listen(port, function () {
+  console.log('Listening on port ' + port);
 });
 
 /*

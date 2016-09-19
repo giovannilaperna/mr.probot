@@ -5,11 +5,11 @@ var express = require('express')
   , _ = require('underscore')
   , middleware_all = require('./middlewares/all')
   , all =  middleware_all.all
-  , bycountry_all = require('./middlewares/bycountry')
+  , middleware_bycountry = require('./middlewares/bycountry')
   , bycountry =  middleware_bycountry.bycountry
-  , bycountry_fast = require('./middlewares/fast')
+  , middleware_fast = require('./middlewares/fast')
   , fast =  middleware_fast.fast
-  , bycountry_html = require('./middlewares/html')
+  , middleware_html = require('./middlewares/html')
   , html =  middleware_html.html
 
 router.get('/all/:country', all, html, function (req, res) {
