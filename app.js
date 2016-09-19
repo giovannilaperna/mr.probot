@@ -9,7 +9,7 @@ app.engine('html', consolidate.handlebars);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
-app.use('/purse', require('./purse/router'))
+app.use('/purse', require('./purse/routers'))
 
 app.listen(3000, function () {
   console.log('Listening on port 3000');
