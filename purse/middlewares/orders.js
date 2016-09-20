@@ -1,10 +1,17 @@
 "use strict";
 
+require('es6-promise').polyfill();
+
+
 var request = require('request')
   , _ = require('underscore')
   , base = 'https://api.purse.io/api/v1/'
 
-var all  = function (req, res, next) {
+const db = require('couchdb-promises')
+  , dbUrl = 'http://localhost:5984'
+  , dbName = 'purse-creds'
+
+var orders  = function (req, res, next) {
 
   var i;
 
@@ -12,7 +19,6 @@ var all  = function (req, res, next) {
   if (req.query.offset !== undefined) { var offset = req.query.offset } else { offset = 0 };
   if (req.query.amount !== undefined) { var amount = req.query.amount } else { amount = '' };
   if (req.params.country !== undefined) { var country = req.params.country } else { country = '' };
-  if (req.query.hide !== undefined) { var hide = req.query.hide } else { hide = '' };
 
   var callbackCurated = function ( error, resp, body ) {
     for (i = body.results.length - 1; i >= 0; i -= 1) {
@@ -44,23 +50,28 @@ var all  = function (req, res, next) {
     request({
       json: true,
       method: 'GET',
-      url: base + 'orders/open?limit=' + limit + '&offset=' + offset + '&country=' + country + '&amount=' + amount + '&hide=' + hide,
+      url: base + 'orders/open?limit=' + limit + '&offset=' + offset + '&country=' + country + '&amount=' + amount + '&hide=true',
       headers: {authorization: 'JWT ' + body.token}
     }, callbackCurated );
   }
 
-  request({
-    json: true,
-    method: 'POST',
-    url: base + 'auth',
-    timeout: 3000,
-    body: {
-      "username": 'altrochepallet@gmail.com',
-      "password": 'THAVlb*maXGLpRz64fdwsy*cH',
-      "noToken": true
-    }
-  }, callbackResults );
+db.getDocument(dbUrl, dbName, 'b5ef8090d1cb44cdda85e88531001181')
+  .then(response => {
+
+    request({
+      json: true,
+      method: 'POST',
+      url: base + 'auth',
+      timeout: 3000,
+      body: {
+        "username": response.data.mil,
+        "password": response.data.psw,
+        "noToken": true
+      }
+    }, callbackResults );
+
+  })
 
 }
 
-module.exports.all = all;
+module.exports.orders = orders;

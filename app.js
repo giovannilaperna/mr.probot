@@ -6,7 +6,6 @@ var express = require('express')
   , path = require('path')
   , port = process.env.PORT || 3000;
 
-
 app.engine('html', consolidate.handlebars);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
@@ -14,7 +13,7 @@ app.set('views', __dirname + '/views');
 app.use('/purse', require('./purse/routers'))
 
 app.get('/', function (req, res) {
-  res.status(200).send(app._router.stack)
+  res.status(200).send('Listening on port ' + port)
 });
 
 app.listen(port, function () {
