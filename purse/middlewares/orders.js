@@ -9,7 +9,7 @@ var request = require('request')
 
 const db = require('couchdb-promises')
   , dbUrl = 'http://localhost:5984'
-  , dbName = 'purse-creds'
+  , dbName = 'credentials-purse'
 
 var orders  = function (req, res, next) {
 
