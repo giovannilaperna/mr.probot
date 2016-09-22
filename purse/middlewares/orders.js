@@ -1,17 +1,13 @@
 "use strict";
 
-require('es6-promise').polyfill();
-
-
 var request = require('request')
   , _ = require('underscore')
   , base = 'https://api.purse.io/api/v1/'
 
-const db = require('couchdb-promises')
-  , dbUrl = 'http://localhost:5984'
-  , dbName = 'credentials-purse'
+var auth = require('./auth')
+  , testAuth = auth.testAuth
 
-var orders  = function (req, res, next) {
+function orders (req, res, next) {
 
   var i;
 
@@ -20,7 +16,7 @@ var orders  = function (req, res, next) {
   if (req.query.amount !== undefined) { var amount = req.query.amount } else { amount = '' };
   if (req.params.country !== undefined) { var country = req.params.country } else { country = '' };
 
-  var callbackCurated = function ( error, resp, body ) {
+  function callbackCurated ( error, resp, body ) {
     for (i = body.results.length - 1; i >= 0; i -= 1) {
       body.results[i].pricing.current_exchange = body.results[i].pricing.buyer_pays_fiat / body.results[i].pricing.buyer_gets_btc;
       body.results[i].pricing.fee = ((body.results[i].pricing.current_exchange / body.results[i].pricing.market_exchange_rate.rate) - 1) * 100;
@@ -46,31 +42,17 @@ var orders  = function (req, res, next) {
     next();
   }
 
-  var callbackResults = function ( error, resp, body) {
+  function callbackResults ( error, resp, body) {
+    console.log(JSON.stringify({error: error, resp: resp}));
     request({
       json: true,
       method: 'GET',
-      url: base + 'orders/open?limit=' + limit + '&offset=' + offset + '&country=' + country + '&amount=' + amount + '&hide=true',
+      url: base + 'orders/open?limit=' + limit + '&offset=' + offset + '&country=' + country + '&amount=' + amount + '&hide=',
       headers: {authorization: 'JWT ' + body.token}
     }, callbackCurated );
   }
 
-db.getDocument(dbUrl, dbName, 'b5ef8090d1cb44cdda85e88531001181')
-  .then(response => {
-
-    request({
-      json: true,
-      method: 'POST',
-      url: base + 'auth',
-      timeout: 3000,
-      body: {
-        "username": response.data.mil,
-        "password": response.data.psw,
-        "noToken": true
-      }
-    }, callbackResults );
-
-  })
+ testAuth('');
 
 }
 

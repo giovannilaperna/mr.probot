@@ -3,14 +3,13 @@ var express = require('express')
   , router = express.Router()
   , request = require('request')
   , _ = require('underscore')
-  , middleware_orders = require('./middlewares/orders')
-  , orders =  middleware_orders.orders
-  , middleware_bycountry = require('./middlewares/bycountry')
-  , bycountry =  middleware_bycountry.bycountry
-  , middleware_fast = require('./middlewares/fast')
-  , fast =  middleware_fast.fast
-  , middleware_html = require('./middlewares/html')
-  , html =  middleware_html.html
+  , login = require('./middlewares/auth').login
+  , orders = require('./middlewares/orders').orders
+  , bycountry = require('./middlewares/bycountry').bycountry
+  , fast = require('./middlewares/fast').fast
+  , html = require('./middlewares/html').html
+  , me = require('./middlewares/me').me
+
 
 router.get('/all/:country', orders, html, function (req, res) {
   res.render( "../purse/views/orders", res.locals );
@@ -43,5 +42,9 @@ router.get('/api/fast/bycountry', orders, fast, bycountry, function (req, res) {
 router.get('/api/fast/:country', orders, fast, function (req, res) {
   res.status(200).send(res.locals)
 });
+
+router.get('/api/me', login, me, function (req, res) {
+    res.status(200).send({username: res.locals})
+  });
 
 module.exports =  router;

@@ -10,7 +10,7 @@ var fast  = function (req, res, next) {
       }
     }
   }
-  res.locals.count = res.locals.results.length,
+  res.locals.count = res.locals.results.length;
   next();
 }
 
