@@ -12,8 +12,9 @@
     "consolidate": "^0.14.1",
     "express": "^4.14.0",
     "handlebars": "^4.0.5",
-    "nano": "^6.2.0",
     "nodemon": "^1.10.2",
+    "pouchdb": "^6.0.5",
+    "pretty-data": "^0.40.0",
     "request": "^2.75.0",
     "totp-generator": "0.0.4"
   }

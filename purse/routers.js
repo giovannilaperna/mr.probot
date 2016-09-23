@@ -3,13 +3,14 @@ var express = require('express')
   , router = express.Router()
   , request = require('request')
   , _ = require('underscore')
-  , login = require('./middlewares/auth').login
+  , pd = require('pretty-data').pd
+
+var login = require('./middlewares/auth').login
   , orders = require('./middlewares/orders').orders
   , bycountry = require('./middlewares/bycountry').bycountry
   , fast = require('./middlewares/fast').fast
   , html = require('./middlewares/html').html
   , me = require('./middlewares/me').me
-
 
 router.get('/all/:country', orders, html, function (req, res) {
   res.render( "../purse/views/orders", res.locals );
@@ -44,7 +45,8 @@ router.get('/api/fast/:country', orders, fast, function (req, res) {
 });
 
 router.get('/api/me', login, me, function (req, res) {
-    res.status(200).send({username: res.locals})
-  });
+  console.log("routers./purse/api/me")
+  res.status(200).send(res.locals);
+});
 
 module.exports =  router;
