@@ -7,7 +7,7 @@ var forms = require("forms")
 
 var bodyParser = require('body-parser');
 
-var testAuth = require('./testAuth').testAuth;
+var auth = require('./auth').auth;
 
 var express = require('express')
   , router = express.Router()
@@ -93,7 +93,7 @@ var addForm = function ( req, res, next) {
   formDefinition.handle( req, {
     success: function(form){
       db.get(form.data.service + '_' + form.data.username, function (dbGetError, dbGetResponse) {
-        testAuth(form.data, function(a) {
+        auth(form.data, function(a) {
           if ( a.status === 200 ) {
             if (!dbGetResponse) {
               console.log(form.data.service + " account added for user " + form.data.username)
