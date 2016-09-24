@@ -10,7 +10,9 @@ app.engine('html', consolidate.handlebars);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
-app.use('/purse', require('./purse/routers'))
+app.use('/services', require('./services/routers'));
+
+app.use('/purse', require('./purse/routers'));
 
 app.get('/', function (req, res) {
   res.status(200).send('Listening on port ' + port)
@@ -19,6 +21,7 @@ app.get('/', function (req, res) {
 app.listen(port, function () {
   console.log('Listening on port ' + port);
 });
+
 
 /*
 app.get('/api/order/:id', function (req, res, next) {

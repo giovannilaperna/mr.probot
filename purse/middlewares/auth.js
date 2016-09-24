@@ -4,14 +4,14 @@ var request = require('request')
   , base = 'https://api.purse.io/api/v1/'
 
 var PouchDB = require('pouchdb')
-var db = new PouchDB('http://localhost:5984/credentials')
+var db = new PouchDB('http://localhost:5984/accounts')
 
 var totp = require('totp-generator');
 
 var pd = require('pretty-data').pd;
 
-var login = function ( req, res, next ) {
-  console.log("login initated")
+var auth = function ( req, res, next ) {
+  console.log("authentication initated")
 
   db.get('altrochepallet_purse', function (dbError, dbResponse) {
     if (new Date().getTime() - dbResponse.timestamp < (4 * 3600 * 1000)) {
@@ -22,10 +22,7 @@ var login = function ( req, res, next ) {
       res.locals = {
         _rev: dbResponse._rev,
         service: dbResponse.service,
-        user: dbResponse.user,
-        email: dbResponse.email,
-        password: dbResponse.password,
-        twofactor: dbResponse.twofactor
+        data: dbResponse,
       };
       request({
         json: true,
@@ -44,17 +41,15 @@ var login = function ( req, res, next ) {
 
   function loginResponse (loginError, loginResponse, loginBody) {
     console.log("login.response: " + pd.json(loginError || loginResponse))
-    if (!error && response.statusCode == 200) {
+    if (!loginError && loginResponse.statusCode == 200) {
       db.put({
         _id: res.locals.user + '_' + res.locals.service,
         _rev: res.locals._rev,
-        service: res.locals.service,
-        user: res.locals.user,
-        email: res.locals.email,
-        password: res.locals.password,
-        twofactor: res.locals.twofactor,
-        token: loginBody.token,
-        timestamp: new Date().getTime()
+        data: res.locals,
+        auth: {
+          token: loginBody.token,
+          timestamp: new Date().getTime()
+        }
       }, function (dbError, dbResponse) {
         console.log("db.put: " + pd.json(dbError || dbResponse));
         next();
@@ -69,4 +64,4 @@ var login = function ( req, res, next ) {
 
 }
 
-module.exports.login = login
+module.exports.auth = auth

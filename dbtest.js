@@ -1,8 +1,6 @@
 // init pounchdb
-var PouchDB = require('pouchdb');
-
-//create a database
-var db = new PouchDB('http://localhost:5984/credentials');
+var PouchDB = require('pouchdb')
+, db = new PouchDB('http://localhost:5984/credentials');
 
 /*
 // all databases info
@@ -17,7 +15,7 @@ db.destroy('credentials').then(function () {
 }).catch(function (err) {
   // error occurred
 })
-*/
+
 
 // put a document
 db.put({
@@ -30,12 +28,15 @@ db.put({
 }, function (err, response) {
   console.log(err || response);
 });
+*/
+
+// get the document by _id
+db.get('altrochepallet_blabla', function (dbError, dbResponse) {
+  console.log("error " + dbError);
+  console.log("response " + dbResponse);
+});
 
 /*
-// get the document by _id
-db.get('altrochepallet_purse').then(function (doc) {
-  console.log(doc);
-});
 
 // update a document
 // fetch mittens

@@ -9,8 +9,10 @@
   "author": "Consfuso",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "consolidate": "^0.14.1",
     "express": "^4.14.0",
+    "forms": "^1.2.0",
     "handlebars": "^4.0.5",
     "nodemon": "^1.10.2",
     "pouchdb": "^6.0.5",

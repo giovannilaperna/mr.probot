@@ -5,7 +5,7 @@ var express = require('express')
   , _ = require('underscore')
   , pd = require('pretty-data').pd
 
-var login = require('./middlewares/auth').login
+var auth = require('./middlewares/auth').auth
   , orders = require('./middlewares/orders').orders
   , bycountry = require('./middlewares/bycountry').bycountry
   , fast = require('./middlewares/fast').fast
@@ -44,7 +44,7 @@ router.get('/api/fast/:country', orders, fast, function (req, res) {
   res.status(200).send(res.locals)
 });
 
-router.get('/api/me', login, me, function (req, res) {
+router.get('/api/me', auth, me, function (req, res) {
   console.log("routers./purse/api/me")
   res.status(200).send(res.locals);
 });

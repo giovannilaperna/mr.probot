@@ -1,3 +1,3 @@
 # Mr.(p)RoBot
 
-Electron application for bitcoins pro traders
+Nodejs for bitcoins pro traders

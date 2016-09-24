@@ -4,8 +4,7 @@ var request = require('request')
   , _ = require('underscore')
   , base = 'https://api.purse.io/api/v1/'
 
-var auth = require('./auth')
-  , testAuth = auth.testAuth
+var auth = require('./auth').auth
 
 function orders (req, res, next) {
 
@@ -51,9 +50,7 @@ function orders (req, res, next) {
       headers: {authorization: 'JWT ' + body.token}
     }, callbackCurated );
   }
-
- testAuth('');
-
+  
 }
 
 module.exports.orders = orders;
