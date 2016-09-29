@@ -23,15 +23,19 @@ function auth (data, callback) {
     }, loginResponse );
 
     function loginResponse (loginError, loginResponse, loginBody) {
-      if (loginError) {
-        console.log('login failed')
+      if (loginBody.errors) {
+        console.log('login failed');
+        callback({
+          status: 401,
+          body: (loginBody.detail)
+        });
       } else {
-        console.log('successful login')
+        console.log('successful login');
+        callback({
+          status: 200,
+          body: (loginBody)
+        });
       };
-      callback({
-        status: loginResponse.statusCode,
-        body: ( loginBody || loginError)
-      });
     }
 
   }

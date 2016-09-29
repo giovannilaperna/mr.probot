@@ -18,6 +18,7 @@
     "pouchdb": "^6.0.5",
     "pretty-data": "^0.40.0",
     "request": "^2.75.0",
-    "totp-generator": "0.0.4"
+    "totp-generator": "0.0.4",
+    "nightmare": "2.7.0"
   }
 }

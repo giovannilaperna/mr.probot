@@ -17,7 +17,8 @@ var PouchDB = require('pouchdb')
 
 var pd = require('pretty-data').pd;
 
-var formDefinition = forms.create({
+// Form definition
+var formService = forms.create({
   service: fields.string({
     label: 'Service Provider',
     choices: {
@@ -35,6 +36,7 @@ var formDefinition = forms.create({
         field: ['form-group']
     },
     validators: [
+      // If service is not selected, return an error
       function (form, field, callback) {
         if (field.data === 'empty') {
           callback('select a service provider');
@@ -68,7 +70,7 @@ var formDefinition = forms.create({
   password: fields.password({
     required: true,
     label: 'Password',
-    widget: widgets.text({
+    widget: widgets.password({
       classes: ['input-with-feedback', "form-control"],
     }),
     errorAfterField: true,
@@ -78,7 +80,7 @@ var formDefinition = forms.create({
   }),
   twofactor: fields.password({
     label: 'Two Factor Seed',
-    widget: widgets.text({
+    widget: widgets.password({
       classes: ['input-with-feedback', "form-control"],
     }),
     errorAfterField: true,
@@ -88,55 +90,69 @@ var formDefinition = forms.create({
   })
 });
 
-var addForm = function ( req, res, next) {
+var addService = function ( req, res, next) {
 
-  formDefinition.handle( req, {
+  formService.handle( req, {
+    // Action on form submit success
     success: function(form){
-      db.get(form.data.service + '_' + form.data.username, function (dbGetError, dbGetResponse) {
+      // Check if already in database
+      db.get(form.data.service + '_' + form.data.username)
+      // if in database
+      .then(function (doc) {
+        // Test the login
         auth(form.data, function(a) {
+          // If login success, update the database
           if ( a.status === 200 ) {
-            if (!dbGetResponse) {
-              console.log(form.data.service + " account added for user " + form.data.username)
-              db.put({
-                _id: form.data.service + "_" + form.data.username,
-                credentials: form.data,
-                auth: {
-                  token: a.body.token,
-                  expire: Math.floor((a.body.expire_time + new Date().getTime())/1000)
-                }
-              }, function (dbError, dbResponse) {
-                res.send("db.put: " + pd.json(dbError || dbResponse));
-                next();
-              });
-            } else {
-              console.log(form.data.service + " account updated for user " + form.data.username)
-              db.put({
-                _id:  form.data.service + "_" + form.data.username,
-                _rev: dbGetResponse._rev,
-                credentials: form.data,
-                auth: {
-                  token: a.body.token,
-                  expire: Math.floor((a.body.expire_time + new Date().getTime())/1000)
-                }
-              }, function (dbError, dbResponse) {
-                res.send("db.update: " + pd.json(dbError || dbResponse));
-                next();
-              });
+            doc.credentials = form.data,
+            doc.auth = {
+              token: a.body.token,
+              expire: Math.floor((a.body.expire_time + new Date().getTime())/1000)
             }
+            db.put(doc);
+            console.log(form.data.service + " account updated for user " + form.data.username);
+            res.status(a.status).send("Account updated");
+            next();
+          // if login fails, return the error
           } else {
-            res.status(a.status).send(a.body)
+            res.status(a.status).send(a.body);
+            next();
+          }
+        });
+      })
+      // If not in database
+      .catch(function (err) {
+        // Test the login
+        auth(form.data, function(a) {
+          // If login success, add to database
+          if ( a.status === 200 ) {
+            db.put({
+              _id:  form.data.service + "_" + form.data.username,
+              credentials: form.data,
+              auth: {
+                token: a.body.token,
+                expire: Math.floor((a.body.expire_time + new Date().getTime())/1000)
+              }
+            });
+            console.log(form.data.service + " account added for user " + form.data.username);
+            res.status(a.status).send("Account added");
+            next();
+          // if login fails, return the error
+          } else {
+            // res.status(a.status).send(a.body);
             next();
           }
         });
       });
     },
+    // Action on form submit error
     error: function(form){
-      console.log("error");
+      console.log("form error");
       next();
     },
+    // On GET request to the form, render it
     empty: function(){
       res.render( "../services/views/add", {
-        form: formDefinition.toHTML(),
+        form: formService.toHTML(),
         method: 'POST'
       });
       next();
@@ -144,4 +160,4 @@ var addForm = function ( req, res, next) {
   });
 }
 
-module.exports.addForm = addForm
+module.exports.addService = addService

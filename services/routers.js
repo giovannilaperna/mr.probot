@@ -4,13 +4,16 @@ var express = require('express')
   , request = require('request')
   , pd = require('pretty-data').pd
 
-var addForm = require('./middlewares/add').addForm
+var addService = require('./middlewares/add').addService
 
-router.all('/add', addForm, function (req, res) {
+router.all('/add', addService, function (req, res) {
+  console.log("routers./services/add");
+  res.redirect('/services/list');
 });
 
 router.get('/list', function (req, res) {
   console.log("routers./services/list")
+  res.send('Accounts list')
 });
 
 module.exports =  router;
