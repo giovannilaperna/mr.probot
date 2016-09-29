@@ -8,11 +8,11 @@ var express = require('express')
 
 app.engine('html', consolidate.handlebars);
 app.set('view engine', 'html');
-app.set('views', __dirname + '/views');
+app.set('views', path.join(__dirname + '/views'));
 
-app.use('/services', require('./services/routers'));
+app.use('/account', require('./controllers/account'));
 
-app.use('/purse', require('./purse/routers'));
+app.use('/purse', require('./controllers/purse'));
 
 app.get('/', function (req, res) {
   res.status(200).send('Listening on port ' + port)

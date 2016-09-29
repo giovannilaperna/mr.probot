@@ -90,7 +90,7 @@ var formService = forms.create({
   })
 });
 
-var addService = function ( req, res, next) {
+function addAccount ( req, res, next) {
 
   formService.handle( req, {
     // Action on form submit success
@@ -151,7 +151,7 @@ var addService = function ( req, res, next) {
     },
     // On GET request to the form, render it
     empty: function(){
-      res.render( "../services/views/add", {
+      res.render( "account/add", {
         form: formService.toHTML(),
         method: 'POST'
       });
@@ -160,4 +160,4 @@ var addService = function ( req, res, next) {
   });
 }
 
-module.exports.addService = addService
+module.exports.addAccount = addAccount

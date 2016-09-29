@@ -37,9 +37,7 @@ function auth (data, callback) {
         });
       };
     }
-
   }
-
 }
 
 module.exports.auth = auth

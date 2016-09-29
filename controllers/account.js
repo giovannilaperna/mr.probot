@@ -4,11 +4,10 @@ var express = require('express')
   , request = require('request')
   , pd = require('pretty-data').pd
 
-var addService = require('./middlewares/add').addService
+var addAccount = require('../middlewares/account/add').addAccount
 
-router.all('/add', addService, function (req, res) {
+router.all('/add', addAccount, function (req, res) {
   console.log("routers./services/add");
-  res.redirect('/services/list');
 });
 
 router.get('/list', function (req, res) {

@@ -5,19 +5,19 @@ var express = require('express')
   , _ = require('underscore')
   , pd = require('pretty-data').pd
 
-var auth = require('./middlewares/auth').auth
-  , orders = require('./middlewares/orders').orders
-  , bycountry = require('./middlewares/bycountry').bycountry
-  , fast = require('./middlewares/fast').fast
-  , html = require('./middlewares/html').html
-  , me = require('./middlewares/me').me
+var auth = require('../middlewares/purse/auth').auth
+  , orders = require('../middlewares/purse/orders').orders
+  , bycountry = require('../middlewares/purse/bycountry').bycountry
+  , fast = require('../middlewares/purse/fast').fast
+  , html = require('../middlewares/purse/html').html
+  , me = require('../middlewares/purse/me').me
 
 router.get('/all/:country', orders, html, function (req, res) {
-  res.render( "../purse/views/orders", res.locals );
+  res.render( "purse/orders", res.locals );
 });
 
 router.get('/fast/:country', orders, fast, html, function (req, res) {
-  res.render( "../purse/views/orders", res.locals );
+  res.render( "purse/orders", res.locals );
 });
 
 router.get('/api/all', orders, function (req, res) {
