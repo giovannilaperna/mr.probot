@@ -1,14 +1,14 @@
 "use strict";
 
+var exports = module.exports = {};
+
 var request = require('request');
 var totp = require('totp-generator');
 
-function auth (data, callback) {
-
+ exports.auth = function (data, callback) {
   console.log('testing ' + data.service + ' authentication');
 
   if (data.service === 'purse') {
-
     request({
       json: true,
       method: 'POST',
@@ -20,24 +20,8 @@ function auth (data, callback) {
         "2fa" : totp(data.twofactor),
         "noToken": true
       }
-    }, loginResponse );
-
-    function loginResponse (loginError, loginResponse, loginBody) {
-      if (loginBody.errors) {
-        console.log('login failed');
-        callback({
-          status: 401,
-          body: (loginBody.detail)
-        });
-      } else {
-        console.log('successful login');
-        callback({
-          status: 200,
-          body: (loginBody)
-        });
-      };
-    }
+    }, function (err, res, body) {
+      callback(body);
+    });
   }
 }
-
-module.exports.auth = auth

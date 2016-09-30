@@ -10,9 +10,9 @@ app.engine('html', consolidate.handlebars);
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname + '/views'));
 
-app.use('/account', require('./controllers/account'));
+app.use('/account', require('./routes/account'));
 
-app.use('/purse', require('./controllers/purse'));
+app.use('/purse', require('./routes/purse'));
 
 app.get('/', function (req, res) {
   res.status(200).send('Listening on port ' + port)

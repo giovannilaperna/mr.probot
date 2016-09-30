@@ -1,9 +1,7 @@
+"use strict";
+
 var express = require('express')
-  , app = express()
-  , router = express.Router()
-  , request = require('request')
-  , _ = require('underscore')
-  , pd = require('pretty-data').pd
+  , router = express.Router();
 
 var auth = require('../middlewares/purse/auth').auth
   , orders = require('../middlewares/purse/orders').orders
@@ -45,7 +43,6 @@ router.get('/api/fast/:country', orders, fast, function (req, res) {
 });
 
 router.get('/api/me', auth, me, function (req, res) {
-  console.log("routers./purse/api/me")
   res.status(200).send(res.locals);
 });
 
