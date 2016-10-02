@@ -3,6 +3,8 @@
 var express = require('express')
   , router = express.Router();
 
+router.use(express.static('public'));
+
 var auth = require('../middlewares/purse/auth').auth
   , orders = require('../middlewares/purse/orders').orders
   , bycountry = require('../middlewares/purse/bycountry').bycountry

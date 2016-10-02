@@ -6,16 +6,28 @@ var express = require('express')
   , path = require('path')
   , port = process.env.PORT || 3000;
 
-app.engine('html', consolidate.handlebars);
+var hbs = require('hbs');
+hbs.registerPartials(__dirname + '/views/partials');
+
+app.use(express.static('public'));
+
+// app.engine('html', consolidate.handlebars);
 app.set('view engine', 'html');
+app.engine('html', require('hbs').__express);
 app.set('views', path.join(__dirname + '/views'));
+
+var sidebar = require('./middlewares/side').sidebar;
+
+app.use('/', sidebar, function(req, res, next) {
+  next();
+});
 
 app.use('/account', require('./routes/account'));
 
 app.use('/purse', require('./routes/purse'));
 
 app.get('/', function (req, res) {
-  res.status(200).send('Listening on port ' + port)
+  res.render( "template", res.locals);
 });
 
 app.listen(port, function () {

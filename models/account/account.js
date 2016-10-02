@@ -12,7 +12,7 @@ exports.getOne = function (data, callback) {
     include_docs: true
   }).then(function(response) {
     callback(response)
-  }).catch(function (err) {
+  }).catch(function (error) {
     callback(error)
   });
 }
@@ -22,15 +22,16 @@ exports.getAll = function (callback) {
   db.allDocs({
     include_docs: true
   }).then(function(response) {
-    callback(_.groupBy(response), function(group) {
-      return group.service
-    })
-  }).catch(function (err) {
+    callback(_.groupBy(response.rows, function(row) { return row.doc.service; }));
+  }).catch(function (error) {
     callback(error)
   });
 }
 
 exports.put = function (data, callback) {
+  if (data.service === "purse") {
+    data.expire = Math.floor(14400 + (new Date().getTime())/1000)
+  }
   db.get(data.service + "/" + data.username).then(function(doc) {
     db.put({
       _id: doc._id,
@@ -41,14 +42,14 @@ exports.put = function (data, callback) {
       password: data.password,
       twofactor: data.twofactor,
       token: data.token,
-      expire: Math.floor(14400 + (new Date().getTime())/1000)
+      expire: data.expire
     }).then(function (putResponse) {
       callback(putResponse);
-    }).catch(function (putErr) {
-      callback(putErr);
+    }).catch(function (putError) {
+      callback(putError);
     });
   }).then(function(getResponse) {
-  }).catch(function (getErr) {
+  }).catch(function (getError) {
     db.put({
       _id: data.service + "/" + data.username,
       service: data.service,
@@ -57,22 +58,24 @@ exports.put = function (data, callback) {
       password: data.password,
       twofactor: data.twofactor,
       token: data.token,
-      expire: Math.floor(14400 + (new Date().getTime())/1000)
+      expire: data.expire
     }).then(function (putResponse) {
       callback(putResponse);
-    }).catch(function (putErr) {
-      callback(putErr);
+    }).catch(function (putError) {
+      callback(putError);
     });
   });
 }
 
 exports.remove = function (data, callback) {
   db.get(data.service + "/" + data.username).then(function(doc) {
-  }).then(function(response) {
     db.remove({
       _id: doc._id,
       _rev: doc._rev,
     });
-  }).catch(function (err) {
+  }).then(function(response) {
+    callback(response);
+  }).catch(function (error) {
+    callback(error);
   });
 }

@@ -6,7 +6,8 @@ var request = require('request');
 var totp = require('totp-generator');
 
  exports.auth = function (data, callback) {
-  console.log('testing ' + data.service + ' authentication');
+
+  console.log('testing ' + data.service + ' authentication for user ' + data.username);
 
   if (data.service === 'purse') {
     request({
@@ -23,5 +24,8 @@ var totp = require('totp-generator');
     }, function (err, res, body) {
       callback(body);
     });
+  } else {
+    data.errors = "untested";
+    callback(data);
   }
 }
