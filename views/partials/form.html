@@ -1,32 +1,32 @@
 {{#if form}}
 <div id="alert" class="row">
-  <div class="col-md-8">
+  <div class="col-md-12">
   </div>
 </div>
-<div>
+<div id="form">
   <form action="{{form.action}}" method="POST" role="form">
 
     {{#each form.fields}}
     {{#if text}}
     <div class="form-group row">
-      <label for="id_{{id}}" class="col-md-3 col-md-offset-3 col-form-label">{{label}}</label>
-      <div class="col-md-6">
+      <label for="id_{{id}}" class="col-md-4 col-form-label">{{label}}</label>
+      <div class="col-md-8">
         <input type="text" class="form-control" id="id_{{id}}" name="{{id}}" placeholder="{{placeholder}}" value="{{value}}">
       </div>
     </div>
     {{/if}}
     {{#if password}}
     <div class="form-group row">
-      <label for="id_{{id}}" class="col-md-3 col-md-offset-3 col-form-label">{{label}}</label>
-      <div class="col-md-6">
+      <label for="id_{{id}}" class="col-md-4 col-form-label">{{label}}</label>
+      <div class="col-md-8">
         <input type="password" class="form-control" id="id_{{id}}" name="{{id}}" placeholder="{{placeholder}}" value="{{value}}">
       </div>
     </div>
     {{/if}}
     {{#if select}}
     <div class="form-group row">
-      <label for="id_{{id}}" class="col-md-3 col-md-offset-3 col-form-label">{{label}}</label>
-      <div class="col-md-6">
+      <label for="id_{{id}}" class="col-md-4 col-form-label">{{label}}</label>
+      <div class="col-md-8">
         <select class="form-control" id="id_{{id}}" name="{{id}}">
           <option value="" selected disabled> {{placeholder}}</option>
           {{#each options}}
@@ -41,7 +41,7 @@
     {{/each}}
 
     <div class="form-group row">
-      <div class="col-md-6 col-md-offset-6">
+      <div class="col-md-8 col-md-offset-4">
         <button type="submit" class="btn btn-primary">{{form.button}}</button>
       </div>
     </div>

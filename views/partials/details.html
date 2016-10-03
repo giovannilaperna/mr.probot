@@ -1,0 +1,22 @@
+{{#if details}}
+<div id="details">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Index</th>
+        <th>Key</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each details}}
+      <tr>
+        <td>{{@index}}</td>
+        <td>{{@key}}</td>
+        <td>{{this}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+{{/if}}

@@ -52,9 +52,21 @@ router.post('/delete/:id', function(req, res) {
 router.post('/hide/:id', function(req, res) {
 });
 
-router.get('/list', function (req, res) {
+router.get('/:service/:username', function (req, res) {
+  db.getOne("account/" + req.params.service + "/" + req.params.username, function (cb){
+    res.render('template', {'details': cb});
+  });
+});
+
+router.get('/:service', function (req, res) {
+  db.index(req.params.service, function (cb) {
+    res.render('template', {'table' : cb})
+  })
+});
+
+router.get('/', function (req, res) {
   db.getAll(function (cb){
-    res.send(cb);
+    res.render('template', {'table' : cb})
   });
 });
 

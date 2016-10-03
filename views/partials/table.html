@@ -1,0 +1,22 @@
+{{#if table}}
+<div id="table">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        {{#each table.docs.[0]}}
+        <th>{{@key}}</th>
+        {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each table.docs as |foo|}}
+      <tr>
+        {{#each foo}}
+        <td>{{this}}</td>
+        {{/each}}
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+{{/if}}

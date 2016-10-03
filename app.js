@@ -11,6 +11,8 @@ hbs.registerPartials(__dirname + '/views/partials');
 
 app.use(express.static('public'));
 
+var errorhandler = require('errorhandler');
+
 // app.engine('html', consolidate.handlebars);
 app.set('view engine', 'html');
 app.engine('html', require('hbs').__express);
@@ -29,6 +31,10 @@ app.use('/purse', require('./routes/purse'));
 app.get('/', function (req, res) {
   res.render( "template", res.locals);
 });
+
+if ('development' == app.get('env')) {
+  app.use(errorhandler());
+}
 
 app.listen(port, function () {
   console.log('Listening on port ' + port);

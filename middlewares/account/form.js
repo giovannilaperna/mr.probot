@@ -18,19 +18,19 @@ exports.structure = function (req, res, next) {
         options: [
           {
             value: "amazon",
-            label: "Amazon",
+            label: "Amazon"
           },
           {
             value: "purse",
-            label: "Purse.io",
+            label: "Purse.io"
           },
           {
             value: "localbitcoins",
-            label: "Localbitcoins",
+            label: "Localbitcoins"
           },
           {
             value: "paysafecard",
-            label: "Paysafecard",
+            label: "Paysafecard"
           }
         ]
       },

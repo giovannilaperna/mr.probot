@@ -8,28 +8,14 @@
     </li>
     {{#each sidebar.accounts}}
     <li>
-      <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-user fa-stack-1x "></i></span> {{@key}}</a>
+      <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-{{@key}} fa-stack-1x "></i></span> {{@key}}</a>
       <ul class="nav-pills nav-stacked" style="list-style-type:none;">
+        <li><a href="/account/{{@key}}">All</a></li>
       {{#each this}}
-        <li><a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-flag fa-stack-1x "></i></span>{{this.doc.username}}</a></li>
+        <li><a href="{{this.doc.service}}/{{this.doc.username}}">{{this.doc.username}}</a></li>
       {{/each}}
       </ul>
     </li>
     {{/each}}
-    <li>
-      <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-cloud-download fa-stack-1x "></i></span>Overview</a>
-    </li>
-    <li>
-      <a href="#"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-cart-plus fa-stack-1x "></i></span>Events</a>
-    </li>
-    <li>
-      <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-youtube-play fa-stack-1x "></i></span>About</a>
-    </li>
-    <li>
-      <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-wrench fa-stack-1x "></i></span>Services</a>
-    </li>
-    <li>
-      <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-server fa-stack-1x "></i></span>Contact</a>
-    </li>
   </ul>
 </div><!-- /#sidebar-wrapper -->
