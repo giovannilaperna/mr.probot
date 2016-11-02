@@ -12,7 +12,7 @@
       <ul class="nav-pills nav-stacked" style="list-style-type:none;">
         <li><a href="/account/{{@key}}">All</a></li>
       {{#each this}}
-        <li><a href="{{this.doc.service}}/{{this.doc.username}}">{{this.doc.username}}</a></li>
+        <li><a href="/account/{{this.doc.service}}/{{this.doc.username}}">{{this.doc.username}}</a></li>
       {{/each}}
       </ul>
     </li>
