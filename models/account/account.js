@@ -53,7 +53,7 @@ exports.put = function (data, callback) {
   }).then(function(getResponse) {
   }).catch(function (getError) {
     db.put({
-      _id: data.service + "/" + data.username,
+      _id: "account/" + data.service + "/" + data.username,
       service: data.service,
       username: data.username,
       email: data.email,
@@ -70,7 +70,7 @@ exports.put = function (data, callback) {
 }
 
 exports.remove = function (data, callback) {
-  db.get(data.service + "/" + data.username).then(function(doc) {
+  db.get("account/" + data.service + "/" + data.username).then(function(doc) {
     db.remove({
       _id: doc._id,
       _rev: doc._rev,

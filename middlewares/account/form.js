@@ -3,17 +3,31 @@
 var exports = module.exports = {};
 
 exports.structure = function (req, res, next) {
+  res.locals = {
+    alert: req.query.alert
+  }
   res.locals.form = {
-  title: "Add account",
-  action: "add",
-  button: "Test and Save",
+  buttons: [
+    {
+      id: "Test",
+      class: "default",
+      action: "test",
+      method: "POST"
+    },
+    {
+      id: "Save",
+      class: "primary",
+      action: "add",
+      method: "POST"
+    }
+  ],
   fields: [
       {
         id: "service",
         select: true,
         label: "Provider",
         placeholder: "Choose a service provider",
-        value: "",
+        value: req.query.service,
         validation: "",
         options: [
           {
@@ -39,7 +53,7 @@ exports.structure = function (req, res, next) {
         text: true,
         label: "Username",
         placeholder: "Username",
-        value: "",
+        value: req.query.username,
         validation: ""
       },
       {
@@ -47,7 +61,7 @@ exports.structure = function (req, res, next) {
         text: true,
         label: "Email",
         placeholder: "Email",
-        value: "",
+        value: req.query.email,
         validation: ""
       },
       {
@@ -55,7 +69,7 @@ exports.structure = function (req, res, next) {
         password: true,
         label: "Password",
         placeholder: "Password",
-        value: "",
+        value: req.query.password,
         validation: ""
       },
       {
@@ -63,7 +77,7 @@ exports.structure = function (req, res, next) {
         password: true,
         label: "2FA",
         placeholder: "Two Factor Authentication Seed",
-        value: "",
+        value: req.query.twofactor,
         validation: ""
       }
   ]

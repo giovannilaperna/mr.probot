@@ -1,16 +1,15 @@
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
     <li>
-      <a href="/"><span class="fa-stack fa-lg pull-left"><i class="fa fa-home fa-stack-1x "></i></span> Home</a>
+      <a href="/"><span class="fa-stack fa-lg pull-left"><i class="fa fa-home fa-stack-1x "></i></span>Home</a>
     </li>
     <li>
-      <a href="/account/add"><span class="fa-stack fa-lg pull-left"><i class="fa fa-user-plus fa-stack-1x "></i></span> Add Account</a>
+      <a href="/account/add"><span class="fa-stack fa-lg pull-left"><i class="fa fa-user-plus fa-stack-1x "></i></span>Add Account</a>
     </li>
     {{#each sidebar.accounts}}
     <li>
-      <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-{{@key}} fa-stack-1x "></i></span> {{@key}}</a>
+      <a href="/account/{{@key}}"><span class="fa-stack fa-lg pull-left"><i class="fa fa-{{@key}} fa-stack-1x "></i></span><h3>{{@key}}</h3></a>
       <ul class="nav-pills nav-stacked" style="list-style-type:none;">
-        <li><a href="/account/{{@key}}">All</a></li>
       {{#each this}}
         <li><a href="/account/{{this.doc.service}}/{{this.doc.username}}">{{this.doc.username}}</a></li>
       {{/each}}

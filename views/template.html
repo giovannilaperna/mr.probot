@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href=" http://localhost:3000/stylesheets/simple-sidebar.css">
-    <title>{{form.title}}</title>
+    <title>{{title}}</title>
   </head>
     <body>
       <div id="wrapper">
@@ -14,15 +14,8 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
           <div class="container-fluid xyz">
-            <div id="bs-example-navbar-collapse-1">
-              <button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></button>
-              <div id="title" class="row">
-                <div class="col-md-8">
-                  <h1 class="text-right">{{form.title}}</h1>
-                </div>
-              </div>
-            </div><!-- bs-example-navbar-collapse-1 -->
             <div class="row">
+              <h2>{{title}}</h2>
               <div class="col-lg-12">
                 {{> form}}
                 {{> details}}
@@ -39,6 +32,5 @@
     <script src="//cdn.jsdelivr.net/pouchdb/6.0.5/pouchdb.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="http://localhost:3000/javascripts/sidebar_menu.js"></script>
   </body>
 </html>
