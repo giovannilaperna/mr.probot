@@ -18,9 +18,13 @@
     <div class="form-group">
       <label for="id_{{id}}">{{label}}</label>
       <select class="form-control" id="id_{{id}}" name="{{id}}">
-        <option value="" selected disabled> {{placeholder}}</option>
+        <!-- <option value="" selected disabled>{{placeholder}}</option> -->
         {{#each options}}
-        <option value="{{value}}">{{label}}</option>
+        {{#ifCond value '==' ../select_value}}
+          <option value="{{value}}" selected>{{label}}</option>
+        {{else}}
+          <option value="{{value}}">{{label}}</option>
+        {{/ifCond}}
         {{/each}}
       </select>
     </div>

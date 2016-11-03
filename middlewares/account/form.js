@@ -27,7 +27,7 @@ exports.structure = function (req, res, next) {
         select: true,
         label: "Provider",
         placeholder: "Choose a service provider",
-        value: req.query.service,
+        select_value: req.query.service,
         validation: "",
         options: [
           {

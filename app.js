@@ -7,6 +7,7 @@ var express = require('express')
   , port = process.env.PORT || 3000;
 
 var hbs = require('hbs');
+          require('./helpers/handlebars')(hbs);
 hbs.registerPartials(__dirname + '/views/partials');
 
 app.use(express.static('public'));
@@ -39,6 +40,7 @@ if ('development' == app.get('env')) {
 app.listen(port, function () {
   console.log('Listening on port ' + port);
 });
+
 
 
 /*
